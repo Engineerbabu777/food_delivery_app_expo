@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
 
 type Props = {};
 
-const HomeRoot = (props: Props) => {
+const HomeRootLayout = (props: Props) => {
   return (
     <Stack
       screenOptions={{
@@ -16,6 +15,4 @@ const HomeRoot = (props: Props) => {
   );
 };
 
-export default HomeRoot;
-
-const styles = StyleSheet.create({});
+export default HomeRootLayout;
