@@ -1,15 +1,13 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { Redirect } from "expo-router";
 
-export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
-}
+type Props = {};
+
+const index = (props: Props) => {
+  return <Redirect href={"/(home)"} />;
+};
+
+export default index;
+
+const styles = StyleSheet.create({});
