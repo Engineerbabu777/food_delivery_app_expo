@@ -1,7 +1,15 @@
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Linking,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import {Octicons} from '@expo/vector-icons';
+import { AntDesign, Octicons } from "@expo/vector-icons";
 type Props = {};
 
 const index = (props: Props) => {
@@ -40,7 +48,11 @@ const index = (props: Props) => {
     }
   }
 
-  
+  const openMaps = () => {
+    const formattedAddress = encodeURIComponent(displayCurrentAddress);
+    const url = `https://www.google.com/maps/search/?api=1&query=${formattedAddress}`;
+    Linking.openURL(url);
+  };
 
   useEffect(() => {
     getCurrentLocation();
@@ -53,10 +65,12 @@ const index = (props: Props) => {
           flexDirection: "row",
           alignItems: "center",
           gap: 12,
-          padding: 10,
+          padding: 10
         }}
       >
-        <Octicons name="location" size={24} color="#E52850" />
+        <Pressable onPress={openMaps}>
+          <Octicons name="location" size={24} color="#E52850" />
+        </Pressable>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 15, fontWeight: "500" }}>Deliver To</Text>
           <Text style={{ color: "gray", fontSize: 16, marginTop: 3 }}>
@@ -70,13 +84,32 @@ const index = (props: Props) => {
             height: 40,
             borderRadius: 20,
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <Text>A</Text>
         </Pressable>
       </View>
-      </ScrollView>
+
+      {/* INPUT! */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderWidth: 1,
+          borderColor: "#C0C0C0",
+          paddingVertical: 8,
+          paddingHorizontal: 10,
+          borderRadius: 11,
+          marginTop: 10,
+          marginHorizontal: 10
+        }}
+      >
+        <TextInput placeholder="Search for food, hotels" />
+        <AntDesign name="search1" size={24} color="#E52B50" />
+      </View>
+    </ScrollView>
   );
 };
 
