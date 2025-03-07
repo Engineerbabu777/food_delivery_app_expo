@@ -1,7 +1,6 @@
 import { Alert, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import * as LocationGeocoding from "expo-location";
 
 type Props = {};
 
@@ -10,64 +9,54 @@ const index = (props: Props) => {
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
     "fetching your location ..."
   );
-
-  const CheckIfLocationEnabled = async () => {
-    let enabled = await Location.hasServicesEnabledAsync();
-
-    if (!enabled) {
-      Alert.alert(
-        "Location Services not enabled",
-        "Please enable your location services to continue",
-        [{ text: "OK" }],
-        { cancelable: false }
-      );
-    } else {
-      setLocationServicesEnabled(true);
-    }
-  };
-
-  const GetCurrentLocation = async () => {
-    let { status } = await Location.requestBackgroundPermissionsAsync();
-
+  async function getCurrentLocation() {
+    let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      Alert.alert(
-        "Permission not granted",
-        "Allow the app to use the location service",
-        [{ text: "OK" }],
-        { cancelable: false }
-      );
+      //   setErrorMsg('Permission to access location was denied')
+      return;
     }
+    console.log({ status });
 
-    const location = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.High,
-    });
-    console.log(location);
-    let { coords } = await Location.getCurrentPositionAsync();
+    const { coords } = await Location.getCurrentPositionAsync();
+
     if (coords) {
       const { latitude, longitude } = coords;
 
+      //provide lat and long to get the the actual address
       let response = await Location.reverseGeocodeAsync({
         latitude,
-        longitude,
+        longitude
       });
 
-      const address = await LocationGeocoding.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
+      let addressToDisplay;
 
-      const streetAddress = address[0].name;
-      for (let item of response) {
-        let address = `${item.name}, ${item?.postalCode}, ${item?.city}`;
+      console.log({response})
 
-        setDisplayCurrentAddress(address);
+    //   city , country , postalCode,
+
+      if (response?.[0]?.formattedAddress) {
+        const addressToDisplay = `${response?.[0]?.formattedAddress.split(",").slice(1, -1)}, ${response?.[0]?.isoCountryCode}`;
+
+        setDisplayCurrentAddress(addressToDisplay);
+
+      }else{
+
+        addressToDisplay = `${response?.[0]?.streetNumber} ${response?.[0]?.street}, ${response?.[0]?.district}, ${response?.[0]?.city}, ${response?.[0]?.region}, ${response?.[0]?.isoCountryCode}`;
+        setDisplayCurrentAddress(addressToDisplay)
       }
+
+      //   }
+      //   setDisplayCurrentAddress(responce[0]?.city)
     }
-  };
+  }
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text>{displayCurrentAddress}</Text>
     </View>
   );
 };
