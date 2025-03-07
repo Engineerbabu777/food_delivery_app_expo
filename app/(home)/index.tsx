@@ -12,7 +12,8 @@ import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { AntDesign, Ionicons, Octicons } from "@expo/vector-icons";
 import Categories from "@/components/Categories";
-import { items, recommended } from "@/data";
+import { hotels, items, recommended } from "@/data";
+import Hotel from "@/components/Hotel";
 type Props = {};
 
 const index = (props: Props) => {
@@ -228,7 +229,7 @@ const index = (props: Props) => {
       </Text>
 
       <View style={{ marginHorizontal: 8 }}>
-        {data?.map((item, index) => (
+        {hotels?.map((item, index) => (
           <Hotel key={index} item={item} menu={item?.menu} />
         ))}
       </View>

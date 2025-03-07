@@ -70,7 +70,7 @@ export const items = [
 ];
 
 
-const hotels = [
+export  const hotels = [
 {
   id: "0",
   featured_image:
@@ -360,21 +360,6 @@ const hotels = [
   latitude: 12.9716,
   longitude: 77.5946,
   time: "34 min",
-},
-{
-  id: "17",
-  featured_image:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDOJlhGwhda4tsD8Rgk1A97akTRV8QJJC4DA&usqp=CAU",
-  name: "Brothers' Amritsari Dhaba",
-  cuisines: "North Indian",
-  aggregate_rating: 4.2,
-  adress: "Phawara Chowk, Town Hall, Amritsar",
-  smalladress: "Town Hall, Amritsar",
-  offer: "₹40 OFF",
-  no_of_Delivery: 1600,
-  latitude: 12.9716,
-  longitude: 77.5946,
-  time: "40 min",
 },
 {
   id: "18",
