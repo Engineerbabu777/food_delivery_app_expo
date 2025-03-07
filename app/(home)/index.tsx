@@ -12,13 +12,15 @@ import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { AntDesign, Ionicons, Octicons } from "@expo/vector-icons";
 import Categories from "@/components/Categories";
-import { recommended } from "@/data";
+import { items, recommended } from "@/data";
 type Props = {};
 
 const index = (props: Props) => {
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
     "fetching your location ..."
   );
+  const [data, setData] = useState([]);
+
   async function getCurrentLocation() {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -164,6 +166,72 @@ const index = (props: Props) => {
           </View>
         ))}
       </ScrollView>
+
+      {/* Explore Items! */}
+      <Text
+        style={{
+          textAlign: "center",
+          marginTop: 7,
+          letterSpacing: 4,
+          marginBottom: 5,
+          color: "gray"
+        }}
+      >
+        EXPLORE
+      </Text>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {items?.map((item, index) => (
+          <View
+            key={index}
+            style={{
+              width: 90,
+              borderColor: "#E0E0E0",
+              borderWidth: 1,
+              paddingVertical: 5,
+              paddingHorizontal: 1,
+              borderRadius: 5,
+              marginLeft: 10,
+              marginVertical: 10,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "white"
+            }}
+          >
+            <Image
+              style={{ width: 50, height: 50 }}
+              source={{ uri: item?.image }}
+            />
+
+            <Text style={{ fontSize: 13, fontWeight: "500", marginTop: 6 }}>
+              {item?.name}
+            </Text>
+
+            <Text style={{ fontSize: 12, color: "gray", marginTop: 3 }}>
+              {item?.description}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
+
+      {/* ALl restaurants! */}
+      <Text
+        style={{
+          textAlign: "center",
+          marginTop: 7,
+          letterSpacing: 4,
+          marginBottom: 5,
+          color: "gray"
+        }}
+      >
+        ALL RESTAURANTS
+      </Text>
+
+      <View style={{ marginHorizontal: 8 }}>
+        {data?.map((item, index) => (
+          <Hotel key={index} item={item} menu={item?.menu} />
+        ))}
+      </View>
     </ScrollView>
   );
 };
