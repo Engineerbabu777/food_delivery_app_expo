@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { AntDesign, Octicons } from "@expo/vector-icons";
+import Categories from "@/components/Categories";
 type Props = {};
 
 const index = (props: Props) => {
@@ -109,6 +110,12 @@ const index = (props: Props) => {
         <TextInput placeholder="Search for food, hotels" />
         <AntDesign name="search1" size={24} color="#E52B50" />
       </View>
+
+
+      {/* categories */}
+      <Categories />
+
+
     </ScrollView>
   );
 };
