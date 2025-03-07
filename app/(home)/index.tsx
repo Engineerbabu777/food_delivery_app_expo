@@ -26,6 +26,45 @@ const index = (props: Props) => {
     }
   };
 
+  const GetCurrentLocation = async () => {
+    let { status } = await Location.requestBackgroundPermissionsAsync();
+
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission not granted",
+        "Allow the app to use the location service",
+        [{ text: "OK" }],
+        { cancelable: false }
+      );
+    }
+
+    const location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.High,
+    });
+    console.log(location);
+    let { coords } = await Location.getCurrentPositionAsync();
+    if (coords) {
+      const { latitude, longitude } = coords;
+
+      let response = await Location.reverseGeocodeAsync({
+        latitude,
+        longitude,
+      });
+
+      const address = await LocationGeocoding.reverseGeocodeAsync({
+        latitude,
+        longitude,
+      });
+
+      const streetAddress = address[0].name;
+      for (let item of response) {
+        let address = `${item.name}, ${item?.postalCode}, ${item?.city}`;
+
+        setDisplayCurrentAddress(address);
+      }
+    }
+  };
+
   return (
     <View>
       <Text>Home</Text>
