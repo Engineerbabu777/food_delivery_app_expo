@@ -1,4 +1,5 @@
 import {
+  Image,
   Linking,
   Pressable,
   ScrollView,
@@ -9,8 +10,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { AntDesign, Octicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, Octicons } from "@expo/vector-icons";
 import Categories from "@/components/Categories";
+import { recommended } from "@/data";
 type Props = {};
 
 const index = (props: Props) => {
@@ -111,11 +113,57 @@ const index = (props: Props) => {
         <AntDesign name="search1" size={24} color="#E52B50" />
       </View>
 
-
       {/* categories */}
       <Categories />
 
+      {/* Recommended Items! */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {recommended?.map((item, index) => (
+          <View
+            style={{
+              backgroundColor: "white",
+              flexDirection: "row",
+              margin: 10,
+              borderRadius: 8
+            }}
+          >
+            <View>
+              <Image
+                style={{
+                  width: 100,
+                  height: 100,
+                  resizeMode: "cover",
+                  borderTopLeftRadius: 8,
+                  borderBottomLeftRadius: 7
+                }}
+                source={{ uri: item?.image }}
+              />
+            </View>
+            <View style={{ padding: 10, flexDirection: "column" }}>
+              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                {item?.name}
+              </Text>
+              <Text
+                style={{
+                  flex: 1,
+                  marginTop: 3,
+                  color: "gray",
+                  fontWeight: "500"
+                }}
+              >
+                {item?.type}
+              </Text>
 
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 3 }}
+              >
+                <Ionicons name="time" size={24} color="green" />
+                <Text>{item?.time} mins</Text>
+              </View>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
     </ScrollView>
   );
 };
