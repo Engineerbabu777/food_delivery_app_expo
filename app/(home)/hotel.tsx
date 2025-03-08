@@ -174,7 +174,10 @@ import FoodItem from "@/components/FoodItem";
       scrollViewRef?.current?.scrollTo({ y: yOffset, animated: true });
     };
     const [modalVisible, setModalVisible] = useState(false);
-    const recievedMenu = JSON.parse(params?.menu)
+    console.log({
+        menu:params
+    })
+    const recievedMenu = menu
     return (
       <>
         <ScrollView ref={scrollViewRef} style={{ backgroundColor: "white" }}>
