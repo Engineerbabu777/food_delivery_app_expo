@@ -1,21 +1,15 @@
-import React from "react";
 import { Stack } from "expo-router";
+import { Provider } from "react-redux";
+import store from "../../store";
 
-type Props = {};
-
-const HomeRootLayout = (props: Props) => {
+export default function Layout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false
-      }}
-    >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="hotel" />
-      <Stack.Screen name="cart" />
-
-    </Stack>
+    <Provider store={store}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="hotel" />
+        <Stack.Screen name="cart" />
+      </Stack>
+    </Provider>
   );
-};
-
-export default HomeRootLayout;
+}
