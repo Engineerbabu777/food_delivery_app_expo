@@ -11,6 +11,9 @@ const HomeRootLayout = (props: Props) => {
       }}
     >
       <Stack.Screen name="index" />
+      <Stack.Screen name="hotel" />
+      <Stack.Screen name="cart" />
+
     </Stack>
   );
 };
