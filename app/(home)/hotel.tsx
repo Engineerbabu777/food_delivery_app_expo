@@ -16,12 +16,12 @@ import {
   import { Ionicons } from "@expo/vector-icons";
   import { SimpleLineIcons } from "@expo/vector-icons";
   import { MaterialCommunityIcons } from "@expo/vector-icons";
-  import FoodItem from "../../components/FoodItem";
   import { useSelector } from "react-redux";
   import Modal from "react-native-modal";
+import FoodItem from "@/components/FoodItem";
   
   const hotel = () => {
-    const params = useLocalSearchParams();
+    const params:any = useLocalSearchParams();
     const router = useRouter();
     const cart = useSelector((state) => state.cart.cart);
     console.log(cart);
@@ -161,7 +161,7 @@ import {
         ],
       },
     ];
-    const scrollViewRef = useRef(null);
+    const scrollViewRef = useRef<any|null>(null);
     const scrollAnim = useRef(new Animated.Value(0)).current;
     const ITEM_HEIGHT = 650;
     const scrollToCategory = (index) => {
@@ -171,7 +171,7 @@ import {
         duration: 500,
         useNativeDriver: true,
       }).start();
-      scrollViewRef.current.scrollTo({ y: yOffset, animated: true });
+      scrollViewRef?.current?.scrollTo({ y: yOffset, animated: true });
     };
     const [modalVisible, setModalVisible] = useState(false);
     const recievedMenu = JSON.parse(params?.menu)
@@ -256,7 +256,7 @@ import {
                 >
                   {params?.aggregate_rating}
                 </Text>
-                <Ionicons name="ios-star" size={15} color="white" />
+                <Ionicons name="star" size={15} color="white" />
               </View>
               <Text style={{ fontSize: 15, fontWeight: "500", marginLeft: 5 }}>
                 3.2K Ratings
@@ -319,7 +319,7 @@ import {
         >
           <Ionicons
             style={{ textAlign: "center" }}
-            name="md-fast-food-outline"
+            name="fast-food-outline"
             size={24}
             color="white"
           />
